@@ -119,18 +119,39 @@ end;
 ```delphi
 procedure TFormPrincipal.CheckBoxHabilitadoClick(Sender: TObject);
 begin
-  TTernary<string>.New(CheckBoxHabilitado.Checked,
+  // Exemplo utilizando TAction
+  LabelStatus.Caption := TTernary<String>.New(CheckBoxHabilitado.Checked,
     'Habilitado',
     procedure
     begin
       LabelStatus.Font.Color := clGreen;
-      LabelStatus.Caption := 'Habilitado - Checked';
     end).Pipe('Desabilitado',
     procedure
     begin
       LabelStatus.Font.Color := clRed;
-      LabelStatus.Caption := 'Desabilitado - Unchecked';
     end);
+
+  var
+  resultado := TTernary<String>.New(CheckBoxHabilitado.Checked, 'Habilitado',
+    procedure
+    begin
+      // faça qualquer coisa
+
+    end).Pipe('Desabilitado',
+    procedure
+    begin
+      // faça qualquer coisa
+    end);
+
+  CheckBoxHabilitado.Caption := resultado;
+
+  // Exemplo de uso simples (sem TAction)
+
+  // LabelStatus.Caption := TTernary<String>.New(CheckBoxHabilitado.Checked,
+  // 'Habilitado').Pipe('Desabilitado');
+  //
+  // CheckBoxHabilitado.Caption := TTernary<String>.New(CheckBoxHabilitado.Checked,
+  // 'Habilitado').Pipe('Desabilitado');
 end;
 ```
 
